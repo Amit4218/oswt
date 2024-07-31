@@ -1,34 +1,81 @@
-// using express server
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const path = require("path");
 
-// const express = require ("express");
-// const path = require('path');
-// const app = express();
-// var port = 3000;
+const app = express();
+const PORT = 3000;
 
-// app.use(express.static(path.join(__dirname + '/public')));
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use((req,res)=>{
-//     res.status(404);
-//     res.send('<h1>Error 404: Resources not found</h1>')
-// });
+// Serve static files (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
 
-// app.listen(port,()=>{
-//     console.log(App is running on port ${port})
-// })
+// Endpoint to handle form submission
+app.post("/submit-form", (req, res) => {
+  const formData = req.body;
+  const loginformData = req.body;
+  const filePath = path.join(__dirname, "formData.json", "loginformdata");
 
-// using http
+  // Read the existing data from the file
+  fs.readFile(filePath, "utf8", (err, data) => {
+    let existingData = [];
 
-// const http = require('http');
+    if (err) {
+      if (err.code === "ENOENT") {
+        console.log(
+          "formData.json does not exist. A new file will be created."
+        );
+      } else {
+        console.error("Error reading file:", err);
+        return res.status(500).send("Server error");
+      }
+    } else {
+      try {
+        existingData = JSON.parse(data);
+      } catch (parseErr) {
+        console.error("Error parsing JSON:", parseErr);
+        return res.status(500).send("Server error");
+      }
+    }
 
-// var port= 3000;
+    // Append the new form data to the existing data
+    existingData.push(formData);
+    existingData.push(loginformData);
 
-// const server = http.createServer((req , res)=>{
-//     //res.write("Hello i am here!!");
-//     //res.statusCode=200;
-//     res.writeHead(200, 'content-type','text/html');
-//     res.end(`<h1>hello world is here</h1>`);
-// });
+    // Write the updated data back to the file
+    fs.writeFile(
+      filePath,
+      JSON.stringify(existingData, null, 2),
+      (writeErr) => {
+        if (writeErr) {
+          console.error("Error writing file:", writeErr);
+          return res.status(500).send("Server error");
+        } else {
+          console.log("Form submission successful and data written to file.");
+          return res.status(200).send("Form submission successful!");
+        }
+      }
+    );
 
-// server.listen(port, ()=>{
-//     console.log(`server is listening on port ${port}`);
-// });
+    fs.writeFile(
+      filePath,
+      JSON.stringify(existingData, null, 2),
+      (writeErr) => {
+        if (writeErr) {
+          console.error("Error writing file:", writeErr);
+          return res.status(500).send("Server error");
+        } else {
+          console.log("Form submission successful and data written to file.");
+          return res.status(200).send("Form submission successful!");
+        }
+      }
+    );
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
