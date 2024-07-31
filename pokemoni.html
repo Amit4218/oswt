@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Search any pokemon by typing their name</h1>
+    </div>
+    <div class="input-box">
+      <input type="text" id="pokemonName" placeholder="pikachu" />
+      <button onclick="fetchData()">Fetch</button><br />
+    </div>
+
+    <div class="output-image">
+      <p>Your pokemon</p>
+      <img
+        src=""
+        class="img-fluid rounded-top"
+        alt="pokemon sprite"
+        id="pokemonSprite"
+        style="display: none"
+      />
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

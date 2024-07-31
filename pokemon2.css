@@ -1,0 +1,50 @@
+body {
+  background: greenyellow;
+}
+
+.container {
+  color: black;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  font-style: italic;
+  width: 80%;
+  margin: 50px 10% 10% 10%;
+  align-self: center;
+  box-shadow: 10px 10px 10px 10px;
+}
+
+.container:hover {
+  color: red;
+}
+
+.input-box {
+  padding-top: 50px;
+  padding-left: 20px;
+  height: 70px;
+  margin-left: 40%;
+  margin-right: 40%;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: rgb(95, 141, 141);
+}
+input,
+button {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.output-image {
+  text-align: center;
+  height: 150px;
+  margin-top: 10px;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin: 10px 40% 0 40%;
+  border: 1px solid white;
+  border-radius: 5px;
+  background: none;
+}
+img {
+  padding-left: 35%;
+  padding-top: -10px;
+}
